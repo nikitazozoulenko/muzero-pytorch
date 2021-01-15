@@ -91,6 +91,7 @@ def update_weights(config, network, batch, LogSoftmax, MSE, optimizer):
     rewards = torch.stack(rewards, dim=1).float().to(network.device)
     policies = torch.stack(policies, dim=1).float().to(network.device)
 
+    assert True==False
     #is now in correct format: loss below now
     loss = 0
     v, r, p, s = network.initial_inference(observations)
@@ -104,7 +105,6 @@ def update_weights(config, network, batch, LogSoftmax, MSE, optimizer):
         loss -= (LogSoftmax(p) * policies[i]).sum() / config.num_unroll_steps
         s.register_hook(lambda grad: grad * 0.5)
     loss = loss / config.batch_size
-    print(loss)
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()

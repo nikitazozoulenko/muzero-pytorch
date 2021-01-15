@@ -103,8 +103,6 @@ def run_mcts(config: MuZeroConfig, root: Node, action_history: ActionHistory,
 def select_action(config: MuZeroConfig, num_moves: int, node: Node): 
     visit_counts = [(child.visit_count, action) for action, child in node.children.items()]
     temperature = config.visit_softmax_temperature_fn(num_moves=num_moves)
-    print("visit", visit_counts)
-    print("len", len(visit_counts))
     if temperature==0:
         action_pos = np.argmax([v for v, _ in visit_counts])
     else:
